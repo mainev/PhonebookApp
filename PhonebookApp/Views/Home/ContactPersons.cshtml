@@ -1,0 +1,150 @@
+﻿
+<section class="content-header">
+    <h1>
+        <small>Contact Persons</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Contact Persons</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                </div>
+                <div class="box-body ">
+                    <table id="tbl_persons" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in ContactPersons" ng-click="EditContact(row)" data-toggle="modal" data-target="#myModal">
+                                <td></td>
+                                <td>{{row.first_name}}</td>
+                                <td>{{row.last_name}}</td>
+                                <td>{{row.address}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="row no-print">
+                        <div class="col-xs-12">
+                            <a href="javascript:void(0);" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="OpenAddNewContactModal();" ><i class="fa fa-plus"></i> Add new</a>
+                           
+                            <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="GenerateReport();">
+                                <i class="fa fa-download"></i> Generate PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+                </div>
+                <div class="modal-body" ng-form="m_form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error':(m_form.firstname.$invalid)}">
+                                <label for="exampleInputEmail1">First Name</label>
+                                <input type="text" class="form-control" name="firstname" 
+                                       ng-model="newContactPerson.first_name" 
+                                       placeholder="Enter firstname" required>
+
+
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error':(m_form.lastname.$invalid)}">
+                                <label for="exampleInputEmail1">Last Name</label>
+                                <input type="text" class="form-control" name="lastname" ng-model="newContactPerson.last_name" placeholder="Enter lasname" required>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error':(m_form.address.$invalid)}">
+                                <label for="exampleInputEmail1">Address</label>
+                                <input type="text" class="form-control" name="address" ng-model="newContactPerson.address" placeholder="Enter address" required>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error':(m_form.birthday.$invalid)}">
+                                <label for="exampleInputEmail1">Date Of Birth</label>
+                                <input type="date" class="form-control" name="birthday" ng-model="newContactPerson.birthday" required>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error':(m_form.email.$invalid)}">
+                                <label for="exampleInputEmail1">Email Address</label>
+                                <input type="email" class="form-control" name="email" ng-model="newContactPerson.email" placeholder="Enter email" required >
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row" >
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <button class="btn btn-sm btn-flat pull-left" ng-click="newContactPerson.phonenumbers.push({});">Add new number</button>
+                            </div>
+                            <div class="box-body ">
+                                <table id="tbl_persons" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px;"></th>
+                                            <th>Phone Numbers</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="row in newContactPerson.phonenumbers">
+                                            <td class="text-center" >
+                                                <a href="javascript:void(0);" class=""
+                                                   ng-click="RemovePhonenumberItem(row)">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="row.phonenumber" placeholder="Enter phone number">
+                                            </td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box-footer clearfix">
+                               
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveContactPerson(newContactPerson);" ng-disabled="(m_form.$invalid)" >Save changes</button>
+                    <button type="button" class="btn btn-danger pull-left" ng-click="DeleteContact(newContactPerson);" ng-disabled="!editMode">Delete Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
