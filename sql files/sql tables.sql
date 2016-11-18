@@ -1,4 +1,4 @@
-use PhonebookDB
+CREATE DATABASE PhonebookDB;
 
 create table dbo.person(
 	id int identity,
@@ -16,6 +16,4 @@ create table dbo.contact_number(
 	phonenumber varchar(100),
 	person_id int foreign key references person(id)
 );
-
-
 
